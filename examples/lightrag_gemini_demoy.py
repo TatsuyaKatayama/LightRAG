@@ -28,6 +28,7 @@ def fetch_wikipedia_article(title: str) -> str:
             "prop": "extracts",
             "explaintext": True,
         },
+        headers={"User-Agent": "LightRAG/1.0"},
     ).json()
     page_id = next(iter(response["query"]["pages"]))
     text = response["query"]["pages"][page_id]["extract"]
