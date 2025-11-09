@@ -251,6 +251,7 @@ class LightRAG:
         self.llm_model_func = limit_async_func_call(self.llm_model_max_async)(
             partial(
                 self.llm_model_func,
+                model=self.llm_model_name,
                 hashing_kv=self.llm_response_cache,
                 **self.llm_model_kwargs,
             )

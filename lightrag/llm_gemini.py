@@ -89,7 +89,7 @@ async def gemini_complete_if_cache(
 
 
 async def gemini_complete(
-    prompt, system_prompt=None, history_messages=[], api_key=None, **kwargs
+    prompt, model, system_prompt=None, history_messages=[], api_key=None, **kwargs
 ) -> str:
     kwargs.pop("hashing_kv", None)
     keyword_extraction = kwargs.pop("keyword_extraction", None)
@@ -97,7 +97,7 @@ async def gemini_complete(
     # Gemini APIリソース制限回避のため、同時実行数を制限
     async with rate_limiter:
         result = await gemini_complete_if_cache(
-            "models/gemini-1.5-flash-latest",
+            model,
             prompt,
             system_prompt=system_prompt,
             history_messages=history_messages,

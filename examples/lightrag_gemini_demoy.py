@@ -28,6 +28,7 @@ def fetch_wikipedia_article(title: str) -> str:
             "prop": "extracts",
             "explaintext": True,
         },
+        headers={"User-Agent": "LightRAG/1.0"},
     ).json()
     page_id = next(iter(response["query"]["pages"]))
     text = response["query"]["pages"][page_id]["extract"]
@@ -101,7 +102,8 @@ if __name__ == "__main__":
     rag = LightRAG(
         working_dir=WORKING_DIR,
         llm_model_func=gemini_complete,
-        llm_model_name="models/gemini-2.0-flash-latest",
+        llm_model_name="models/gemini-2.0-flash-lite",
+        llm_model_max_async=2,
         embedding_func=EmbeddingFunc(
             embedding_dim=768,
             max_token_size=8192,
